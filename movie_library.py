@@ -9,7 +9,6 @@ class Movie:
             self._is_rented = True
             return True
         else:
-            print("Movie is already rented")
             return False
 
     def return_movie(self):
@@ -17,9 +16,7 @@ class Movie:
             self._is_rented = False
             return True
         else:
-            print("Movie is not rented")
             return False
-
 
 class MovieLibrary:
     def __init__(self):
@@ -34,21 +31,25 @@ class MovieLibrary:
 
     def list_available_movies(self):
         for movie in self._movies:
-            if movie.rent():
+            if not movie._is_rented:
                 print(movie.title, movie.director)
 
     def rent_movie(self, title):
         for movie in self._movies:
             if movie.title == title:
                 if movie.rent():
-                    print("Movie rented. Do enjoy your movie! 😊")
+                    print(f"Thank you for renting '{movie.title}'. 😊")
+                else:
+                    print(f"Sorry, '{movie.title}' is not available. 😞")
                 return
-        print("Movie not found. Try another movie 😊")
+        print(f"Movie '{title}' not found in the library. 😞")
 
     def return_movie(self, title):
         for movie in self._movies:
             if movie.title == title:
                 if movie.return_movie():
-                    print("Movie returned. Thank you! 😊")
+                    print(f"Thank you for returning '{movie.title}'. 😊")
+                else:
+                    print(f"'{movie.title}' was not rented. 😐")
                 return
-        print("Wrong movies. Please return the actual movie rented out. 😒")
+        print(f"Movie '{title}' doesn't belong to us. 😒")
